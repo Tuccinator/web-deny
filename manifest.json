@@ -1,0 +1,27 @@
+{
+	"manifest_version": 2,
+	"name": "WebDeny",
+	"version": "1.0",
+
+	"description": "Stay productive and block frivolous websites.",
+	"homepage_url": "http://github.com/Tuccinator/WebDeny",
+	"icons": {
+		"48": "icons/icon-48.png"
+	},
+
+	"permissions": [
+		"activeTab"
+	],
+
+	"browser_action": {
+		"default_icon": "icons/icon-32.png",
+		"default_title": "WebDeny",
+		"default_popup": "popup.html"
+	},
+
+	"applications": {
+		"gecko": {
+			"id": "webdeny@example.com"
+		}
+	}
+}
