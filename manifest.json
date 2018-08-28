@@ -10,7 +10,9 @@
 	},
 
 	"permissions": [
-		"activeTab"
+		"activeTab",
+		"storage",
+		"tabs"
 	],
 
 	"browser_action": {
@@ -19,9 +21,22 @@
 		"default_popup": "popup.html"
 	},
 
+	"background": {
+		"scripts": [
+			"background.js"
+		]
+	},
+
 	"applications": {
 		"gecko": {
 			"id": "webdeny@example.com"
 		}
-	}
+	},
+
+	"content_scripts": [
+		{
+			"js": ["content_scripts/blocker.js"],
+			"matches": ["*://*/"]
+		}
+	]
 }

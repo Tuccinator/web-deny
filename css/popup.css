@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 300px;
+	height: 500px;
+	background: #2940a4;
+	background: -moz-linear-gradient(-45deg, #2940a4 0%, #22305f 100%);
+	background: -webkit-linear-gradient(-45deg, #2940a4 0%,#22305f 100%);
+	background: linear-gradient(135deg, #2940a4 0%,#22305f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2940a4', endColorstr='#22305f',GradientType=1 );
+	font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+	margin: 0;
+	padding: 1rem;
+	font-size: 0.8rem;
+	color: white;
+}
+
+.button {
+	display: block;
+	background: #33E1B3;
+	background: -moz-linear-gradient(top, #33E1B3 0%, #12A1AA 100%);
+	background: -webkit-linear-gradient(top, #33E1B3 0%,#12A1AA 100%);
+	background: linear-gradient(to bottom, #33E1B3 0%,#12A1AA 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33E1B3', endColorstr='#12A1AA',GradientType=0 );
+	color: white;
+	width: 200px;
+	margin: 30px auto;
+	padding: 1rem 1rem;
+	font-size: 0.8rem;
+	border: none;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.a-button {
+	display: block;
+	background-color: transparent;
+	color: white;
+	border: 3px solid white;
+	width: 200px;
+	margin: 30px auto;
+	padding: 1rem 1rem;
+	font-size: 0.8rem;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 1px;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
+	box-sizing: border-box;
+	text-decoration: none;
+}
+
+.button:hover {
+	box-shadow: 0px 0px 5px #12A1AA;
+}
+
+.credits {
+	position: absolute;
+	bottom: 0;
+	font-size: 0.6rem;
+	padding: 0.5rem;
+	color: white;
+	text-align: center;
+}
+
+.credits a {
+	color: #efbfa2;
+}
