@@ -1,39 +1,47 @@
-browser.runtime.onMessage.addListener(message => {
-	message = JSON.parse(message);
-	if(message.action == 'check-url') {
-		let tabId = null;
-		let url = message.url;
+// listener for intercepting HTTP request 
+function listener(details) {
+	return {redirectUrl: "http://google.com"};
+}
 
-		browser.tabs.query({active: true})
-			.then(tabs => {
-				tabId = tabs[0].id;
-			})
-			.then(() => {
-				return loadBlockedSites();
-			})
+// when a new site is added from the options page, remove the current listener and add a new one with the new site
+function resetBlockedSites() {
+	browser.webRequest.onBeforeRequest.removeListener(listener);
+
+	getBlockedSitesFormatted();
+}
+
+// turn all the blocked sites into wildcards to intercept
+async function getBlockedSitesFormatted() {
+	const result = await new Promise((resolve, reject) => {
+		loadBlockedSites()
 			.then(sites => {
+				let sitesFormatted = [];
+
 				const siteKeys = Object.keys(sites);
 
 				for(const siteKey of siteKeys) {
 					const site = sites[siteKey];
 
-					var a = document.createElement('a');
+					let a = document.createElement('a');
 					a.href = site.url;
 
-					var b = document.createElement('a');
-					b.href = url;
-
-					let ahost = String(a.host).replace(/^www\./,'');
-					let bhost = String(b.host).replace(/^www\./,'');
-					
-					if(ahost == bhost) {
-						browser.tabs.sendMessage(tabId, 'block');
-					}
+					sitesFormatted.push(`*://*.${a.host}/*`);
 				}
-			})
-	}
-})
 
+				resolve(sitesFormatted);
+			})
+	})
+	
+	// when a request is made, add all of the blocked sites to blocked URLS
+	browser.webRequest.onBeforeRequest.addListener(listener, {urls: result, types: ["main_frame"]}, ["blocking"])
+
+	return result;
+}
+
+// when the background page loads, automatically load the blocked sites
+getBlockedSitesFormatted();
+
+// get all the blocked sites from the local storage
 function loadBlockedSites() {
 	return browser.storage.local.get();
 }

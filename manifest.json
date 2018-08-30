@@ -12,7 +12,10 @@
 	"permissions": [
 		"activeTab",
 		"storage",
-		"tabs"
+		"tabs",
+		"webRequest",
+		"webRequestBlocking",
+		"<all_urls>"
 	],
 
 	"browser_action": {
@@ -31,12 +34,5 @@
 		"gecko": {
 			"id": "webdeny@example.com"
 		}
-	},
-
-	"content_scripts": [
-		{
-			"js": ["content_scripts/blocker.js"],
-			"matches": ["*://*/"]
-		}
-	]
+	}
 }
