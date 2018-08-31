@@ -53,26 +53,204 @@ form {
 
 input[type=text] {
 	display: block;
-	padding: 1rem;
+	padding: 1rem 5px;
 	width: 98%;
-	margin: 0 auto;
 	box-sizing: border-box;
 	outline: none;
 	border: none;
-	border-radius: 4px;
+	width: calc(100% + 10px);
+	text-align: center;
+	font-size: 1rem;
+	letter-spacing: 1px;
+	color: white;
+	background-color: transparent;
 }
 
-.blocked-site {
+.blocked-sites-container {
 	width: 98%;
 	margin: 0 auto;
-	background-color: white;
-	border-radius: 4px;
-	padding: 0.5rem;
+	position: relative;
+	clear: both;
+}
+
+.blocked-sites-container h2 {
+	font-size: 1.2rem;
+	color: white;
+	letter-spacing: 1px;
+	background-color: rgba(0, 0, 0, 0.2);
+	padding: 1rem;
+}
+
+.blocked-sites-container .add-blocked-site-container {
+	height: 100px;
+	width: 20%;
+	padding: 0 10px;
 	box-sizing: border-box;
-	margin-top: 10px;
+	float: left;
+	margin-bottom: 1rem;
+	color: white;
+}
+
+.blocked-sites-container .add-blocked-site-container .add-blocked-site {
+	border: 3px dashed rgba(255, 255, 255, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+	cursor: pointer;
+	font-size: 1.1rem;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.blocked-sites-container .add-blocked-site:hover {
+	background: #2940a4;
+	background: -moz-linear-gradient(-45deg, #2940a4 0%, #22305f 100%);
+	background: -webkit-linear-gradient(-45deg, #2940a4 0%,#22305f 100%);
+	background: linear-gradient(135deg, #2940a4 0%,#22305f 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2940a4', endColorstr='#22305f',GradientType=1 );
+}
+
+.blocked-site-container {
+	height: 106px;
+	width: 20%;
+	padding: 0 10px;
+	box-sizing: border-box;
+	float: left;
+	margin-bottom: 1rem;
+}
+
+.blocked-site-container .blocked-site {
+	height: 106px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(255, 255, 255, 0.9);
+	box-sizing: border-box;
 	color: #2940a4;
+	position: relative;
+	font-size: 0.8rem;
+	font-weight: bold;
+	letter-spacing: 1px;
 }
 
 .blocked-site img {
-	margin-right: 10px;
+	position: absolute;
+	top: 10px;
+	left: 10px;	
+}
+
+.blocked-site .blocked-site-remove {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	cursor: pointer;
+}
+
+/** 
+* MODAL
+*/
+.modal {
+  display: none;
+}
+
+.vanilla-modal .modal {
+  display: block;
+  position: fixed;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s, z-index 0s 0.2s;
+  text-align: center;
+  overflow: hidden;
+  overflow-y: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.vanilla-modal .modal > * {
+  display: inline-block;
+  white-space: normal;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.vanilla-modal .modal:before {
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+  content: "";
+}
+
+.vanilla-modal.modal-visible .modal {
+  z-index: 99;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.modal-inner {
+  position: relative;
+  overflow: hidden;
+  max-width: 90%;
+  max-height: 90%;
+  width: 500px;
+  height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s, transform 0.2s, z-index 0s 0.2s;
+}
+.modal-visible .modal-inner {
+  z-index: 100;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+[data-modal-close] {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 0;
+  width: 25px;
+  padding-top: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+body.vanilla-modal .modal-hider {
+	position: absolute;
+	left: -99999em;
+}
+
+.modal-header {
+	height: 25px;
+	padding: 10px;
+	font-size: 0.8rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	box-sizing: border-box;
+	color: white;
+}
+
+.modal-input {
+	height: 175px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

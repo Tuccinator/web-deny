@@ -9,10 +9,52 @@
 <body>
 	<h1>WebDeny</h1>
 
-	<input type="text" placeholder="Enter a site to block...">
+	<div class="blocked-sites-container">
+		<h2>Intermittent Blocking</h2>
 
-	<div id="blocked-sites"></div>
+		<div class="add-blocked-site-container">
+			<div class="add-blocked-site" id="intermittent-add-site">
+				<span>+ Add Site</span>
+				<div id="intermittent-modal" class="modal-hider">
+					<div class="modal-header">
+						<span>Add Intermittent Site</span>
+					</div>
+					<div class="modal-input">
+						<input type="text" placeholder="Enter URL to block intermittently..." id="intermittent-input" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="intermittent-blocked-sites"></div>
+	</div>
 
+	<div class="blocked-sites-container">
+		<h2>Permanent Blocking</h2>
+
+		<div class="add-blocked-site-container">
+			<div class="add-blocked-site" id="permanent-add-site">
+				<span>+ Add Site</span>
+				<div id="permanent-modal" class="modal-hider">
+					<div class="modal-header">
+						<span>Add Permanent Site</span>
+					</div>
+					<div class="modal-input">
+						<input type="text" placeholder="Enter URL to block permanently..." id="permanent-input" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="permanent-blocked-sites"></div>
+	</div>
+
+	<div class="modal">
+		<div class="modal-inner">
+			<a data-modal-close>x</a>
+			<div class="modal-content">
+		</div>
+	</div>
+
+	<script src="js/modal.js"></script>
 	<script src="js/options.js"></script>
 </body>
 
