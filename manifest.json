@@ -34,5 +34,9 @@
 		"gecko": {
 			"id": "webdeny@example.com"
 		}
-	}
+	},
+
+	"web_accessible_resources": [
+		"blocked.html"
+	]
 }

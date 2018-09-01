@@ -1,6 +1,6 @@
 // listener for intercepting HTTP request 
 function listener(details) {
-	return {redirectUrl: "http://google.com"};
+	return {redirectUrl: browser.extension.getURL('blocked.html')};
 }
 
 // when a new site is added from the options page, remove the current listener and add a new one with the new site

@@ -1,0 +1,35 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	height: 100vh;
+	background: #292929;
+}
+
+.website-blocked {
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: bold;
+	font-size: 2rem;
+	letter-spacing: 1px;
+}
+
+.website-blocked p {
+	height: 200px;
+	width: 80%;
+	background-color: #B10F09;
+	font-family: 'Roboto', sans-serif;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	background: linear-gradient(135deg, transparent 30px, #B10F09 0) top left, linear-gradient(315deg, transparent 30px, #B10F09 0) bottom right;
+	background-size: 100% 50%;
+	background-repeat: no-repeat;
+}
