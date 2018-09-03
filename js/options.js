@@ -9,9 +9,18 @@ const background = browser.extension.getBackgroundPage();
 const modal = new VanillaModal.default();
 
 document.body.addEventListener('click', e => {
+	let dataUrl = '';
+
+	// check if the clicked element was the removal button or the icon within
+	if(e.target.classList.contains('fa-times')) {
+		dataUrl = e.target.parentNode['data-url'];
+	} else if(e.target.classList.contains('blocked-site-remove')) {
+		dataUrl = e.target['data-url'];
+	}
+
 	// check if the click is from a blocked site to remove it
-	if(e.target.classList.contains('blocked-site-remove')) {
-		removeBlockedSite(e.target['data-url']);
+	if(dataUrl.length > 0) {
+		removeBlockedSite(dataUrl);
 		e.preventDefault();
 	}
 })
