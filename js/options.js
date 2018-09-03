@@ -3,6 +3,10 @@ const $intermittentBlockedSites = document.getElementById('intermittent-blocked-
 const $intermittentAddSite = document.getElementById('intermittent-add-site');
 const $permanentBlockedSites = document.getElementById('permanent-blocked-sites');
 const $permanentAddSite = document.getElementById('permanent-add-site');
+const $timer = document.getElementById('timer');
+
+const background = browser.extension.getBackgroundPage();
+const modal = new VanillaModal.default();
 
 document.body.addEventListener('click', e => {
 	// check if the click is from a blocked site to remove it
@@ -12,8 +16,6 @@ document.body.addEventListener('click', e => {
 	}
 })
 
-const modal = new VanillaModal.default();
-
 $intermittentAddSite.addEventListener('click', e => {
 	modal.open('#intermittent-modal');
 });
@@ -21,6 +23,16 @@ $intermittentAddSite.addEventListener('click', e => {
 $permanentAddSite.addEventListener('click', e => {
 	modal.open('#permanent-modal');
 });
+
+// set the initial value of the timer to the user-defined setting
+$timer.value = background.getTimerLimit();
+
+// check for an "enter" key press to submit the new timer limit
+$timer.addEventListener('keyup', e => {
+	if(e.which == 13) {
+		background.updateTimerLimit(parseInt(e.target.value));
+	}
+})
 
 function onKeyup(e) {
 	// when enter is pressed, add to the blocked site list
@@ -40,7 +52,6 @@ function onKeyup(e) {
 
 		site[e.target.value] = {
 			url: url,
-			type: 1,
 			favicon: `https://s2.googleusercontent.com/s2/favicons?domain_url=${url}`,
 			type: type,
 			added_at: Date.now()
@@ -123,7 +134,7 @@ function createBlockedList() {
 				const siteDeleter = document.createElement('a');
 				siteDeleter['data-url'] = site.url;
 				siteDeleter.className = 'blocked-site-remove';
-				siteDeleter.text = 'x';
+				siteDeleter.innerHTML = '<i class="fa fa-times"></i>';
 				siteDeleter.href = '#';
 
 				// create the url text
@@ -145,8 +156,7 @@ function createBlockedList() {
 			}
 		})
 		.then(() => {
-			let backgroundPage = browser.extension.getBackgroundPage();
-			backgroundPage.resetBlockedSites();
+			background.resetBlockedSites();
 		})
 }
 

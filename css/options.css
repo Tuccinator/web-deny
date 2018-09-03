@@ -51,7 +51,7 @@ form {
 	width: 100%;
 }
 
-input[type=text] {
+.modal input[type=text] {
 	display: block;
 	padding: 1rem 5px;
 	width: 98%;
@@ -132,6 +132,7 @@ input[type=text] {
 	font-size: 0.8rem;
 	font-weight: bold;
 	letter-spacing: 1px;
+	overflow: hidden;
 }
 
 .blocked-site img {
@@ -145,6 +146,28 @@ input[type=text] {
 	right: 10px;
 	top: 10px;
 	cursor: pointer;
+	color: #333;
+}
+
+.timer-settings {
+
+}
+
+.timer-settings input {
+	margin-left: 10px;
+	width: 100px;
+	text-align: center;
+	font-size: 1.6rem;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: white;
+	border: none;
+}
+
+.timer-settings span {
+	font-size: 1.6rem;
+	color: white;
+	padding-left: 5px;
+	letter-spacing: 1px;
 }
 
 /** 

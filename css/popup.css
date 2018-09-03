@@ -7,7 +7,7 @@ html, body {
 
 body {
 	width: 300px;
-	height: 500px;
+	height: 205px;
 	background: #2940a4;
 	background: -moz-linear-gradient(-45deg, #2940a4 0%, #22305f 100%);
 	background: -webkit-linear-gradient(-45deg, #2940a4 0%,#22305f 100%);
@@ -21,6 +21,7 @@ h1 {
 	padding: 1rem;
 	font-size: 0.8rem;
 	color: white;
+	float: left;
 }
 
 .button {
@@ -31,6 +32,7 @@ h1 {
 	background: linear-gradient(to bottom, #33E1B3 0%,#12A1AA 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33E1B3', endColorstr='#12A1AA',GradientType=0 );
 	color: white;
+	height: 50px;
 	width: 200px;
 	margin: 30px auto;
 	padding: 1rem 1rem;
@@ -42,30 +44,21 @@ h1 {
 	letter-spacing: 1px;
 	border-radius: 4px;
 	cursor: pointer;
-}
-
-.a-button {
-	display: block;
-	background-color: transparent;
-	color: white;
-	border: 3px solid white;
-	width: 200px;
-	margin: 30px auto;
-	padding: 1rem 1rem;
-	font-size: 0.8rem;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-	text-transform: uppercase;
-	font-weight: bold;
-	letter-spacing: 1px;
-	border-radius: 4px;
-	cursor: pointer;
-	text-align: center;
-	box-sizing: border-box;
-	text-decoration: none;
+	outline: none;
 }
 
 .button:hover {
 	box-shadow: 0px 0px 5px #12A1AA;
+}
+
+.is-breaking {
+	filter: grayscale(2);
+	cursor: default;
+	font-size: 1rem;
+}
+
+.is-breaking:hover {
+	box-shadow: none;
 }
 
 .credits {
@@ -79,4 +72,17 @@ h1 {
 
 .credits a {
 	color: #efbfa2;
+}
+
+.popup-actionbar {
+	clear: both;
+	overflow: hidden;
+}
+
+.popup-actionbar a {
+	float: right;
+	padding: 1rem 1rem 1rem 0;
+	font-size: 0.8rem;
+	color: white;
+	outline: none;
 }
