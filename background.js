@@ -5,6 +5,42 @@ let breaking = false;
 let endTime = null;
 let breakTimeout = null;
 
+// add a site to the blocked sites list
+function addSite(urlToAdd, type) {
+	let site = {};
+
+	// automatically add the HTTP/S prefix
+	const url = addHttpPrefix(urlToAdd);
+
+	site[urlToAdd] = {
+		url: url,
+		favicon: `https://s2.googleusercontent.com/s2/favicons?domain_url=${url}`,
+		type: type,
+		added_at: Date.now()
+	};
+
+	// persist the updated blocked site list to the local storage
+	browser.storage.local.set(site);
+
+	// reset the blocked sites
+	resetBlockedSites();
+}
+
+// add an HTTP/S prefix if non-existant
+function addHttpPrefix(s) {
+	var prefix = 'http';
+
+	if (s.substr(0, prefix.length) !== prefix) {
+	    s = prefix + '://' + s;
+	}
+
+	if(s.substr(-1, 1) !== '/') {
+		s += '/';
+	}
+
+	return s;
+}
+
 // listener for intercepting HTTP request 
 function listener(details) {
 	return {redirectUrl: browser.extension.getURL('blocked.html')};

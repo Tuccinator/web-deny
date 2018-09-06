@@ -46,10 +46,6 @@ $timer.addEventListener('keyup', e => {
 function onKeyup(e) {
 	// when enter is pressed, add to the blocked site list
 	if(e.which == 13) {
-		let site = {};
-
-		// automatically add the HTTP/S prefix
-		const url = addHttpPrefix(e.target.value);
 
 		// automatically set the site type to permanent
 		let type = 'permanent';
@@ -59,15 +55,7 @@ function onKeyup(e) {
 			type = 'intermittent';
 		}
 
-		site[e.target.value] = {
-			url: url,
-			favicon: `https://s2.googleusercontent.com/s2/favicons?domain_url=${url}`,
-			type: type,
-			added_at: Date.now()
-		};
-
-		// persist the updated blocked site list to the local storage
-		browser.storage.local.set(site);
+		background.addSite(e.target.value, type);
 
 		// create the new lists for each category
 		createBlockedList();
@@ -84,21 +72,6 @@ document.getElementById('permanent-input').addEventListener('keyup', onKeyup);
 // load all of the blocked sites from the local storage
 function loadBlockedSites() {
 	return browser.storage.local.get();
-}
-
-// add an HTTP/S prefix if non-existant
-function addHttpPrefix(s) {
-	var prefix = 'http';
-
-	if (s.substr(0, prefix.length) !== prefix) {
-	    s = prefix + '://' + s;
-	}
-
-	if(s.substr(-1, 1) !== '/') {
-		s += '/';
-	}
-
-	return s;
 }
 
 // add the blocked sites to the DOM

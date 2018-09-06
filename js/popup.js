@@ -1,5 +1,8 @@
 const $breakBtn = document.getElementById('break-btn');
 const $settingsBtn = document.getElementById('settings-btn');
+const $addBtn = document.getElementById('add-btn');
+const $dropdown = document.getElementById('add-dropdown');
+const $addToSites = document.getElementsByClassName('add-current-site');
 const background = browser.extension.getBackgroundPage();
 
 let breakInterval = null;
@@ -7,11 +10,40 @@ let breaking = false;
 
 $breakBtn.addEventListener('click', takeBreak);
 $settingsBtn.addEventListener('click', openSettings);
+$addBtn.addEventListener('click', toggleDropdown);
+
+for (let i = 0; i < $addToSites.length; i++) {
+	$addToSites[i].addEventListener('click', addCurrentSite);
+}
 
 // open the options page
 function openSettings() {
 	browser.tabs.create({url: "../options.html"});
 	window.close();
+}
+
+// toggle the dropdown for adding the current site to blocked site list
+function toggleDropdown() {
+	if($dropdown.classList.contains('is-hidden')) {
+		$dropdown.classList.remove('is-hidden');
+	} else {
+		$dropdown.classList.add('is-hidden');
+	}
+}
+
+// add the current site to blocked site list
+function addCurrentSite(e) {
+	browser.tabs.query({active:true, currentWindow:true})
+		.then(tabs => {
+		    var currentTabUrl = tabs[0].url;
+
+		    const link = document.createElement('a');
+		    link.href = currentTabUrl;
+
+		    background.addSite(link.host, e.target.dataset.type);
+		    
+		    $dropdown.classList.add('is-hidden');
+		});
 }
 
 // begin the break
