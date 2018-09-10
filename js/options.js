@@ -10,6 +10,7 @@ const modal = new VanillaModal.default();
 
 document.body.addEventListener('click', e => {
 	let dataUrl = '';
+	let move = false;
 
 	// check if the clicked element was the removal button or the icon within
 	if(e.target.classList.contains('fa-times')) {
@@ -18,9 +19,18 @@ document.body.addEventListener('click', e => {
 		dataUrl = e.target['data-url'];
 	}
 
+	// check if the blocked type switcher was clicked
+	if(e.target.classList.contains('fa-exchange-alt')) {
+		dataUrl = e.target.parentNode['data-url'];
+		move = true;
+	}
+
 	// check if the click is from a blocked site to remove it
-	if(dataUrl.length > 0) {
+	if(dataUrl.length > 0 && !move) {
 		removeBlockedSite(dataUrl);
+		e.preventDefault();
+	} else if(dataUrl.length > 0 && move) {
+		moveBlockedSite(dataUrl);
 		e.preventDefault();
 	}
 })
@@ -97,6 +107,8 @@ function createBlockedList() {
 		})
 		.then(sites => {
 
+			console.log(sites);
+
 			$intermittentBlockedSites.innerHTML = '';
 			$permanentBlockedSites.innerHTML = '';
 
@@ -119,6 +131,12 @@ function createBlockedList() {
 				siteDeleter.innerHTML = '<i class="fa fa-times"></i>';
 				siteDeleter.href = '#';
 
+				const siteTypeSwitcher = document.createElement('a');
+				siteTypeSwitcher['data-url'] = site.url;
+				siteTypeSwitcher.className = 'blocked-site-switcher';
+				siteTypeSwitcher.innerHTML = '<i class="fa fa-exchange-alt"></i>';
+				siteTypeSwitcher.href = '#';
+
 				// create the url text
 				const siteText = document.createTextNode(site.url);
 
@@ -126,6 +144,7 @@ function createBlockedList() {
 				siteElement.append(siteFavicon);
 				siteElement.append(siteDeleter);
 				siteElement.append(siteText);
+				siteElement.append(siteTypeSwitcher);
 
 				siteElementContainer.append(siteElement);
 
@@ -153,6 +172,39 @@ function removeBlockedSite(site) {
 			// make sure the URL exists in the first place
 			if(sites[link.host] !== undefined) {
 				browser.storage.local.remove(link.host);
+			}
+		})
+		.then(() => {
+			createBlockedList();
+		})
+}
+
+function moveBlockedSite(site) {
+	loadBlockedSites()
+		.then(sites => {
+
+			// transform the URL into an anchor tag to get the hostname
+			const link = document.createElement('a');
+			link.href = site;
+
+			// make sure the URL exists in the first place
+			if(sites[link.host] !== undefined) {
+				let blockType = sites[link.host].type;
+				let currentSite = {};
+
+				// change the block type depending on the current setting
+				if(blockType == 'intermittent') {
+					sites[link.host].type = 'permanent';
+				} else {
+					sites[link.host].type = 'intermittent';
+				}
+
+				sites[link.host].added_at = Date.now();
+
+				currentSite[link.host] = sites[link.host];
+
+				// update the existing stored site
+				browser.storage.local.set(currentSite);
 			}
 		})
 		.then(() => {
